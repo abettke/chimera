@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+
+    mongo:
+        image: 'mongo'
+        container_name: 'chimera-db'
+        restart: 'always'
+        ports:
+            - 27017:27017
+        volumes:
+            - ./docker/mongo:/docker-entrypoint-initdb.d/
+            - mongodata:/data/db
+        env_file:
+            - ./env/.env
+            
+volumes:
+    mongodata:
