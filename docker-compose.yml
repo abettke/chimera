@@ -1,18 +1,37 @@
 version: '3.1'
 
 services:
-
-    mongo:
-        image: 'mongo'
-        container_name: 'chimera-db'
-        restart: 'always'
-        ports:
-            - 27017:27017
+    mongo-primary:
+        image: mongo
+        container_name: chimeradb-primary
+        hostname: chimeradb-primary
+        restart: always
+        command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
+        expose:
+          - 27017
         volumes:
-            - ./docker/mongo:/docker-entrypoint-initdb.d/
-            - mongodata:/data/db
+            - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
+            - ./docker/mongo:/home
+            - mongodata-primary:/data/db
         env_file:
             - ./env/.env
-            
+
+    mongo-secondary:
+        image: mongo
+        container_name: chimeradb-ares
+        hostname: chimeradb-ares
+        restart: always
+        command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
+        expose:
+          - 27017
+        volumes:
+            - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
+            - ./docker/mongo:/home
+            - mongodata-ares:/data/db
+        env_file:
+          - ./env/.env
+   
 volumes:
-    mongodata:
+    mongodata-primary:
+    mongodata-ares:
+    mongodata-boreas:
