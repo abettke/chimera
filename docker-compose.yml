@@ -1,42 +1,42 @@
 version: '3.4'
 
 x-mongo-rs-node: &mongo-rs-node
-    image: mongo
-    restart: always
-    command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
-    expose:
-        - 27017
-    env_file:
-        - ./env/.env
+  image: mongo
+  restart: always
+  command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
+  expose:
+    - 27017
+  env_file:
+    - ./env/.env
 
 services:
-    mongo-primary:
-        <<: *mongo-rs-node
-        container_name: chimeradb-primary
-        hostname: chimeradb-primary
-        volumes:
-            - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
-            - ./docker/mongo/initReplSet.sh:/home/initReplSet.sh
-            - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
-            - mongodata-primary:/data/db
+  mongo-primary:
+    <<: *mongo-rs-node
+    container_name: chimeradb-primary
+    hostname: chimeradb-primary
+    volumes:
+      - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
+      - ./docker/mongo/initReplSet.sh:/home/initReplSet.sh
+      - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
+      - mongodata-primary:/data/db
 
-    mongo-secondary:
-        <<: *mongo-rs-node
-        container_name: chimeradb-ares
-        hostname: chimeradb-ares
-        volumes:
-            - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
-            - mongodata-ares:/data/db
+  mongo-secondary:
+    <<: *mongo-rs-node
+    container_name: chimeradb-ares
+    hostname: chimeradb-ares
+    volumes:
+      - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
+      - mongodata-ares:/data/db
 
-    mongo-arbiter:
-        <<: *mongo-rs-node
-        container_name: chimeradb-boreas
-        hostname: chimeradb-boreas
-        volumes:
-            - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
-            - mongodata-boreas:/data/db
-   
+  mongo-arbiter:
+    <<: *mongo-rs-node
+    container_name: chimeradb-boreas
+    hostname: chimeradb-boreas
+    volumes:
+      - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
+      - mongodata-boreas:/data/db
+
 volumes:
-    mongodata-primary:
-    mongodata-ares:
-    mongodata-boreas:
+  mongodata-primary:
+  mongodata-ares:
+  mongodata-boreas:
