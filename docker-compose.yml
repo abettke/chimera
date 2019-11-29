@@ -10,6 +10,24 @@ x-mongo-rs-node: &mongo-rs-node
     - ./env/.env
 
 services:
+
+  nestjs:
+    build:
+      context: .
+      dockerfile: docker/nestjs/Dockerfile
+    container_name: chimera
+    hostname: chimera
+    command: yarn start:development
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src/:/home/src
+      - nestjs-node-modules:/home/node_modules/
+    env_file:
+      - ./env/.env.schema
+      - ./env/.env.defaults
+      - ./env/.env
+
   mongo-primary:
     <<: *mongo-rs-node
     container_name: chimeradb-primary
@@ -37,6 +55,7 @@ services:
       - mongodata-boreas:/data/db
 
 volumes:
+  nestjs-node-modules:
   mongodata-primary:
   mongodata-ares:
   mongodata-boreas:

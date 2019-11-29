@@ -5,13 +5,7 @@ import { AppService } from './app.service';
 import { OrmModule } from './orm/orm.module';
 
 @Module({
-  imports: [
-    TypegooseModule.forRoot(`mongodb://chimera:chimera@localhost:27017/chimera`, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    }),
-    OrmModule
-  ],
+  imports: [],
   controllers: [AppController],
   providers: [AppService],
 })

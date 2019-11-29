@@ -4,13 +4,7 @@ import { Model } from './models';
 import { OrmController } from './orm.controller';
 
 @Module({
-  imports: [
-    TypegooseModule.forFeature([
-      Model
-    ])
-  ],
-  controllers: [
-    OrmController
-  ]
+  imports: [],
+  controllers: [],
 })
 export class OrmModule {}
