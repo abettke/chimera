@@ -17,11 +17,10 @@ services:
       dockerfile: docker/nestjs/Dockerfile
     container_name: chimera
     hostname: chimera
-    command: yarn start:development
+    command: yarn start:production
     ports:
       - 3000:3000
     volumes:
-      - ./src/:/home/src
       - nestjs-node-modules:/home/node_modules/
     env_file:
       - ./env/.env.schema

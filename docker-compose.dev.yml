@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+
+  nestjs:
+    command: yarn start:development
+    volumes:
+      - ./src/:/home/src
