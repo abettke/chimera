@@ -15,6 +15,10 @@ rsconf = {
       {
          _id: 1,
          host: "chimeradb-ares:27017"
+      },
+      {
+        _id: 2,
+        host: "chimeradb-boreas:27017"
       }
    ]
 };

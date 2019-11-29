@@ -1,35 +1,40 @@
-version: '3.1'
+version: '3.4'
+
+x-mongo-rs-node: &mongo-rs-node
+    image: mongo
+    restart: always
+    command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
+    expose:
+        - 27017
+    env_file:
+        - ./env/.env
 
 services:
     mongo-primary:
-        image: mongo
+        <<: *mongo-rs-node
         container_name: chimeradb-primary
         hostname: chimeradb-primary
-        restart: always
-        command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
-        expose:
-          - 27017
         volumes:
             - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
-            - ./docker/mongo:/home
+            - ./docker/mongo/initReplSet.sh:/home/initReplSet.sh
+            - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
             - mongodata-primary:/data/db
-        env_file:
-            - ./env/.env
 
     mongo-secondary:
-        image: mongo
+        <<: *mongo-rs-node
         container_name: chimeradb-ares
         hostname: chimeradb-ares
-        restart: always
-        command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
-        expose:
-          - 27017
         volumes:
-            - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
-            - ./docker/mongo:/home
+            - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
             - mongodata-ares:/data/db
-        env_file:
-          - ./env/.env
+
+    mongo-arbiter:
+        <<: *mongo-rs-node
+        container_name: chimeradb-boreas
+        hostname: chimeradb-boreas
+        volumes:
+            - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
+            - mongodata-boreas:/data/db
    
 volumes:
     mongodata-primary:
