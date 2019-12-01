@@ -26,7 +26,7 @@
     "dc:up:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
     "dc:down": "docker-compose down",
     "dc:db:replset": "docker exec chimeradb-primary sh /home/initReplSet.sh",
-    "dc:db:clear": "docker-compose down && docker volume rm $(docker volume ls -q | grep chimera_mongodata)"
+    "dc:db:clear": "docker-compose down && docker volume rm $(docker volume ls -q | grep chimera_*_mongodata)"
   },
   "dependencies": {
     "@nestjs/common": "^6.0.0",
