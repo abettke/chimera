@@ -15,6 +15,7 @@ services:
     build:
       context: .
       dockerfile: docker/nestjs/Dockerfile
+    image: chimera
     container_name: chimera
     hostname: chimera
     command: yarn start:production

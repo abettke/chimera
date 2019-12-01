@@ -1,8 +1,4 @@
-FROM node:12
-RUN apt-get update
-
-# Install Yarn
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+FROM node:alpine
 
 # Copy installation and build files
 WORKDIR /home/
@@ -15,4 +11,3 @@ RUN yarn install --frozen-lockfile
 
 # Build the application
 RUN yarn build
-
