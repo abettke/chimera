@@ -1,13 +1,17 @@
 version: '3.4'
 
+x-environment: &environment
+  - ./env/.env.schema
+  - ./env/.env.defaults
+  - ./env/.env
+
 x-mongo-rs-node: &mongo-rs-node
   image: mongo
   restart: always
   command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
   expose:
     - 27017
-  env_file:
-    - ./env/.env
+  env_file: *environment
 
 services:
 
@@ -22,11 +26,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - nestjs-node-modules:/home/node_modules/
-    env_file:
-      - ./env/.env.schema
-      - ./env/.env.defaults
-      - ./env/.env
+      - nestjs_node_modules:/home/node_modules/
+    env_file: *environment
 
   mongo-primary:
     <<: *mongo-rs-node
@@ -36,7 +37,7 @@ services:
       - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
       - ./docker/mongo/initReplSet.sh:/home/initReplSet.sh
       - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
-      - mongodata-primary:/data/db
+      - primary_mongodata:/data/db
 
   mongo-secondary:
     <<: *mongo-rs-node
@@ -44,7 +45,7 @@ services:
     hostname: chimeradb-ares
     volumes:
       - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
-      - mongodata-ares:/data/db
+      - ares_mongodata:/data/db
 
   mongo-arbiter:
     <<: *mongo-rs-node
@@ -52,10 +53,10 @@ services:
     hostname: chimeradb-boreas
     volumes:
       - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
-      - mongodata-boreas:/data/db
+      - boreas_mongodata:/data/db
 
 volumes:
-  nestjs-node-modules:
-  mongodata-primary:
-  mongodata-ares:
-  mongodata-boreas:
+  nestjs_node_modules:
+  primary_mongodata:
+  ares_mongodata:
+  boreas_mongodata:
