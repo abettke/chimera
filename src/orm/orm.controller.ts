@@ -1,16 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
-import { ReturnModelType } from "@typegoose/typegoose";
-import { InjectModel } from "nestjs-typegoose";
+import { ReturnModelType } from '@typegoose/typegoose';
+import { InjectModel } from 'nestjs-typegoose';
 import { Model } from './models';
 
-@Controller('orm')
+@Controller(`/orm`)
 export class OrmController {
-  constructor(@InjectModel(Model) private readonly ModelService: ReturnModelType<typeof Model>) {}
+  constructor(
+    @InjectModel(Model) private readonly ChimeraModel: ReturnModelType<any>,
+  ) {}
 
   @Get()
-  findAll(): string{
-    console.log(this.ModelService);
-    return 'you found them all';
+  async getModel(): Promise<string> {
+    return 'Hello ORM';
   }
-
 }
