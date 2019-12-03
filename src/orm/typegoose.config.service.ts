@@ -3,7 +3,7 @@ import {
   TypegooseOptionsFactory,
   TypegooseModuleOptions,
 } from 'nestjs-typegoose';
-import { Environment } from '../env/environment.provider';
+import { Environment } from '../env';
 
 @Injectable()
 export class TypegooseConfigService implements TypegooseOptionsFactory {
@@ -16,8 +16,6 @@ export class TypegooseConfigService implements TypegooseOptionsFactory {
         `replicaSet=${this.env.CHIMERADB_REPLICASET}`,
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      connectTimeoutMS: 10000,
-      socketTimeoutMS: 10000,
     };
   }
   constructor(private readonly env: Environment) {}
