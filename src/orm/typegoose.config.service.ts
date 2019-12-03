@@ -1,9 +1,7 @@
+import * as mongoose from 'mongoose';
 import { Injectable } from '@nestjs/common';
-import {
-  TypegooseOptionsFactory,
-  TypegooseModuleOptions,
-} from 'nestjs-typegoose';
-import { Environment } from '../env';
+import { TypegooseModuleOptions, TypegooseOptionsFactory } from 'nestjs-typegoose';
+import { Environment, NODE_ENV_TYPES } from '../env';
 
 @Injectable()
 export class TypegooseConfigService implements TypegooseOptionsFactory {
@@ -18,5 +16,7 @@ export class TypegooseConfigService implements TypegooseOptionsFactory {
       useUnifiedTopology: true,
     };
   }
-  constructor(private readonly env: Environment) {}
+  constructor(private readonly env: Environment) {
+    mongoose.set('debug', this.env.NODE_ENV === NODE_ENV_TYPES.DEVELOPMENT);
+  }
 }

@@ -1,2 +1,2 @@
-export { Environment } from './environment.provider';
+export { Environment, NODE_ENV_TYPES } from './environment.provider';
 export { EnvironmentModule } from './environment.module';

@@ -11,6 +11,7 @@ export class OrmController {
 
   @Get()
   async getModel(): Promise<string> {
+    await this.ChimeraModel.find();
     return 'Hello ORM';
   }
 }
