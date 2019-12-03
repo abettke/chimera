@@ -3,6 +3,7 @@ FROM node:alpine
 # Copy installation and build files
 WORKDIR /home/
 COPY ./package.json ./
+COPY ./yarn.lock ./
 COPY ./tsconfig* ./
 COPY ./src/ ./src/
 

@@ -3,14 +3,22 @@ import {
   TypegooseOptionsFactory,
   TypegooseModuleOptions,
 } from 'nestjs-typegoose';
+import { Environment } from '../env/environment.provider';
 
 @Injectable()
 export class TypegooseConfigService implements TypegooseOptionsFactory {
   createTypegooseOptions(): TypegooseModuleOptions {
     return {
-      uri: `mongodb://chimera:chimera@chimeradb-primary:27017,chimeradb-ares:27017,chimeradb-boreas:27017/chimera?replicaSet=crs`.trim(),
+      uri: `mongodb://` +
+        `${this.env.CHIMERADB_USERNAME}:${this.env.CHIMERADB_PASSWORD}@` +
+        `${this.env.CHIMERADB_HOSTS}/` +
+        `${this.env.CHIMERADB_NAME}?` +
+        `replicaSet=${this.env.CHIMERADB_REPLICASET}`,
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      connectTimeoutMS: 10000,
+      socketTimeoutMS: 10000,
     };
   }
+  constructor(private readonly env: Environment) {}
 }
