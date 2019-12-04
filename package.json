@@ -11,7 +11,7 @@
     "init:db:keyfile": "sh ./docker/mongo/makeKeyfile.sh",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
-    "start": "ts-node -r tsconfig-paths/register src/main.ts",
+    "start": "ts-node -r tsconfig-paths/register src/app.start.ts",
     "start:development": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/main.js\"",
     "start:production": "node dist/main.js",
