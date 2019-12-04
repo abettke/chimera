@@ -3,6 +3,8 @@ version: '3.4'
 services:
 
   nestjs:
-    command: yarn start:development
+    command: yarn start:debug
+    ports:
+      - 9229:9229
     volumes:
       - ./src/:/home/src
