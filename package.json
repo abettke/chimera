@@ -8,7 +8,6 @@
   },
   "license": "MIT",
   "scripts": {
-    "init:db:keyfile": "sh ./docker/mongo/makeKeyfile.sh",
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/app.start.ts",

@@ -6,12 +6,17 @@ x-environment: &environment
   - ./env/.env
 
 x-mongo-rs-node: &mongo-rs-node
-  image: mongo
+  build:
+    context: docker/mongo
+    dockerfile: Dockerfile
+  image: chimeradb
   restart: always
   command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
   expose:
     - 27017
   env_file: *environment
+  environment:
+    - CHIMERADB_REPLICASET_PRIMARY=true
 
 services:
 
@@ -34,9 +39,6 @@ services:
     container_name: chimeradb-primary
     hostname: chimeradb-primary
     volumes:
-      - ./docker/mongo/initdb:/docker-entrypoint-initdb.d/
-      - ./docker/mongo/initReplSet.sh:/home/initReplSet.sh
-      - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
       - primary_mongodata:/data/db
 
   mongo-secondary:
@@ -44,7 +46,6 @@ services:
     container_name: chimeradb-ares
     hostname: chimeradb-ares
     volumes:
-      - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
       - ares_mongodata:/data/db
 
   mongo-arbiter:
@@ -52,7 +53,6 @@ services:
     container_name: chimeradb-boreas
     hostname: chimeradb-boreas
     volumes:
-      - ./docker/mongo/mongod.keyfile:/home/mongod.keyfile
       - boreas_mongodata:/data/db
 
 volumes:
