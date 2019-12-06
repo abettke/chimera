@@ -24,7 +24,7 @@
     "dc:up": "docker-compose up -d",
     "dc:up:dev": "docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d",
     "dc:down": "docker-compose down",
-    "dc:db:replset": "docker exec chimeradb-primary sh /home/initReplSet.sh",
+    "dc:db:replset": "docker exec chimeradb-primary sh /etc/init.d/replset.sh",
     "dc:db:clear": "docker-compose down && docker volume rm $(docker volume ls -q | grep chimera_*_mongodata)"
   },
   "dependencies": {
