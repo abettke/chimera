@@ -11,7 +11,7 @@ x-mongo-rs-node: &mongo-rs-node
     dockerfile: Dockerfile
   image: chimeradb
   restart: always
-  command: --replSet crs --bind_ip_all --keyFile /home/mongod.keyfile
+  command: --replSet crs --bind_ip_all --keyFile /etc/mongo/mongod.keyfile
   expose:
     - 27017
   env_file: *environment
