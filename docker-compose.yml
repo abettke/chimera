@@ -30,8 +30,6 @@ services:
     command: yarn start:production
     ports:
       - 3000:3000
-    volumes:
-      - nestjs_node_modules:/home/node_modules/
     env_file: *environment
 
   mongo-primary:
@@ -56,7 +54,6 @@ services:
       - boreas_mongodata:/data/db
 
 volumes:
-  nestjs_node_modules:
   primary_mongodata:
   ares_mongodata:
   boreas_mongodata:
