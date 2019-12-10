@@ -8,3 +8,4 @@ services:
       - 9229:9229
     volumes:
       - ./src/:/home/src
+      - ./node_modules/:/home/node_modules

@@ -30,14 +30,19 @@
   "dependencies": {
     "@nestjs/common": "^6.0.0",
     "@nestjs/core": "^6.0.0",
+    "@nestjs/graphql": "^6.5.3",
     "@nestjs/platform-express": "^6.0.0",
     "@typegoose/typegoose": "^6.1.2",
+    "apollo-server-express": "^2.9.13",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.10",
     "nestjs-typegoose": "^7.0.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
-    "rxjs": "^6.3.3"
+    "rxjs": "^6.3.3",
+    "type-graphql": "^0.17.5"
   },
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
