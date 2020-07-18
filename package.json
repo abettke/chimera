@@ -36,7 +36,7 @@
     "apollo-server-express": "^2.9.13",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.6",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mongoose": "^5.7.10",
     "nestjs-typegoose": "^7.0.0",
     "reflect-metadata": "^0.1.12",
